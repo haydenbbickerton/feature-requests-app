@@ -1,0 +1,126 @@
+<style lang="less" scoped>
+//Navbar custom dropdown menu
+.navbar-nav > .accounts-menu {
+  //fix width and padding
+  > .dropdown-menu {
+    > li {
+      position: relative;
+    }
+    width: 280px;
+    //Remove padding and margins
+    padding: 0 0 0 0;
+    margin: 0;
+    top: 100%;
+  }
+  //Define header class
+  > .dropdown-menu > li.header {
+    border-radius: 4px 4px 0 0;
+    background-color: #ffffff;
+    padding: 7px 10px;
+    border-bottom: 1px solid #f4f4f4;
+    color: #444444;
+    font-size: 14px;
+  }
+
+  //Define footer class
+  > .dropdown-menu > li.footer > a {
+    border-radius: 0 0 4px 4px;
+    font-size: 12px;
+    background-color: #fff;
+    padding: 7px 10px;
+    border-bottom: 1px solid #eeeeee;
+    color: #444 !important;
+    //@media (max-width: @screen-sm-max) {
+    //  background: #fff !important;
+    //  color: #444 !important;
+    //}
+    text-align: center;
+    //Hover state
+    &:hover {
+      text-decoration: none;
+      font-weight: normal;
+    }
+  }
+
+  //Clear inner menu padding and margins
+  > .dropdown-menu > li .menu {
+    max-height: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: hidden;
+    > li > a {
+      display: block;
+      white-space: nowrap; /* Prevent text from breaking */
+      border-bottom: 1px solid #f4f4f4;
+      // Hove state
+      &:hover {
+        background: #f4f4f4;
+        text-decoration: none;
+      }
+    }
+  }
+}
+</style>
+
+<template>
+<header class="main-header" v-el:header>
+    <!-- Logo -->
+    <a class="logo">
+      {{navTitle}}
+    </a>
+    <nav class="navbar navbar-static-top">
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account Menu -->
+                    <li class="dropdown user user-menu" v-link-active>
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <!-- The user image in the navbar-->
+                        <img :src="user.picture" class="user-image" alt="User Image">
+                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                        <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <img :src="user.picture" class="img-circle" alt="User Image">
+                                <p>
+                                {{ user.first_name }} {{ user.last_name }}
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a v-link="{ path: '/auth/logout' }" class="btn btn-default btn-flat">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-custom-menu -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+
+    </nav>
+</header>
+
+</template>
+<script>
+export default {
+  name: 'header',
+  props: [
+    'user'
+  ],
+  data: function () {
+    return {
+      navTitle: 'Feature Requests'
+    }
+  },
+  ready: function () {
+    $('.main-content-wrapper').css('padding-top', $(this.$els.header).height())
+  }
+}
+
+</script>
