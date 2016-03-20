@@ -64,7 +64,7 @@
 </style>
 
 <template>
-<header class="main-header" v-el:header>
+<header class="main-header" v-el:navbar>
     <!-- Logo -->
     <a class="logo">
       {{navTitle}}
@@ -105,11 +105,11 @@
 
     </nav>
 </header>
-
 </template>
+
 <script>
 export default {
-  name: 'header',
+  name: 'navbar',
   props: [
     'user'
   ],

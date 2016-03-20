@@ -1,8 +1,34 @@
-import Vue from 'vue'
-import App from './App'
+/*eslint no-multiple-empty-lines: "off"*/
+import vue from 'vue'
+import app from './app'
+import Router from 'vue-router'
+import configRouter from './routes'
 
-/* eslint-disable no-new */
-new Vue({
-  el: 'body',
-  components: { App }
+const Vue = vue
+
+/*
+|------------------------------------------------
+| Router Setup
+|------------------------------------------------
+*/
+Vue.use(Router)
+
+const router = new Router({
+  hashbang: true,
+  history: true,
+  saveScrollPosition: true,
+  linkActiveClass: 'active'
 })
+
+configRouter(router)
+
+/*
+|------------------------------------------------
+| Components
+|------------------------------------------------
+| Have to use require() for the local file
+*/
+Vue.use(require('./components'))
+
+// Liftoff
+router.start(app, 'app')

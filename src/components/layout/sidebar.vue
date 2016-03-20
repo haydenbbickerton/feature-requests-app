@@ -5,13 +5,8 @@
 </style>
 
 <template>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
+  <aside class="main-sidebar" v-el:sidebar>
     <section class="sidebar">
-      <form class="sidebar-form">
-          <date-picker class="btn btn-default btn-block"></date-picker>
-      </form>
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">ADVERTISEMENT</li>
@@ -20,6 +15,7 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 var path = require('path')
+var webpack = require('webpack')
 var cssLoaders = require('./css-loaders')
 var projectRoot = path.resolve(__dirname, '../')
 
@@ -71,6 +72,13 @@ module.exports = {
       extract: false
     })
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      _: 'lodash'
+    })
+  ],
   eslint: {
     formatter: require('eslint-friendly-formatter')
   }
