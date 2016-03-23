@@ -9,7 +9,7 @@ let components = {
   'spinner': './ui/partials/spinner.vue'
 }
 
-export function install (Vue) {
+function install (Vue) {
   // This lets us do dynamic requires
   let req = require.context('./', true, /^\.\/.*\.vue$/)
 
@@ -18,3 +18,5 @@ export function install (Vue) {
     Vue.component(directive, req(file))
   })
 }
+
+export default install

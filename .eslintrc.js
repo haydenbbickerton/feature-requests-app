@@ -2,12 +2,18 @@ module.exports = {
   root: true,
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   extends: 'standard',
+  // environments
+  env: {
+    'browser': true,
+    'node': true,
+    'es6': true,
+    'jquery': true
+  },
   // required to lint *.vue files
   plugins: [
     'html'
   ],
   globals: {
-    '$': false,
     '_': false
   },
   // add your custom rules here

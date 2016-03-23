@@ -22,6 +22,7 @@ module.exports = {
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')]
   },
+  devtool: 'source-map',
   module: {
     preLoaders: [
       {
@@ -47,6 +48,14 @@ module.exports = {
         loader: 'babel',
         include: projectRoot,
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
       },
       {
         test: /\.json$/,

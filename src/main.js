@@ -2,13 +2,24 @@
 import vue from 'vue'
 import app from './app'
 import Router from 'vue-router'
-import configRouter from './routes'
+import Resource from 'vue-resource'
+import Components from './components'
+import Interceptors from './interceptors'
+import routes from './routes'
+import config from '../config'
 
 const Vue = vue
 
 /*
 |------------------------------------------------
-| Router Setup
+| Assets
+|------------------------------------------------
+*/
+import './assets'
+
+/*
+|------------------------------------------------
+| Router
 |------------------------------------------------
 */
 Vue.use(Router)
@@ -20,15 +31,28 @@ const router = new Router({
   linkActiveClass: 'active'
 })
 
-configRouter(router)
+// Inject our routes into the router
+routes(router)
+
+
+/*
+|------------------------------------------------
+| Resource
+|------------------------------------------------
+*/
+Vue.use(Resource)
+Vue.http.options = config.http.options
+Vue.http.headers.common = config.http.headers.common
+Vue.use(Interceptors, config)
 
 /*
 |------------------------------------------------
 | Components
 |------------------------------------------------
-| Have to use require() for the local file
+| Attaching them to the root instance so they can
+| be used in all views without having to import
 */
-Vue.use(require('./components'))
+Vue.use(Components)
 
 // Liftoff
 router.start(app, 'app')
