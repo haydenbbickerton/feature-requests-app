@@ -7,13 +7,12 @@ import Cookies from 'js-cookie'
 export function interceptor (options) {
   return {
     request: function (request) {
-      // console.log(request)
-
-      let token = Cookies.get('jwt-auth').replace(/\+/g, ' ')
+      let token = Cookies.get('jwt-auth')
       let headers = request.headers || (request.headers = {})
 
+      // Add our token to the auth header
       if (token !== null && token !== 'undefined') {
-        headers.authorization = token
+        headers.authorization = 'Bearer ' + token.replace(/\+/g, ' ')
       }
 
       return request
