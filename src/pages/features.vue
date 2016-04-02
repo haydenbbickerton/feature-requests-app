@@ -10,7 +10,7 @@
 
 <script>
 module.exports = {
-  name: 'home',
+  name: 'features',
   props: [
     'user'
   ]

@@ -4,13 +4,13 @@
 <template>
 <!-- div to avoid fragement instance -->
 <div>
-    <router-view :user="user"></router-view>
+    test
 </div>
 </template>
 
 <script>
 module.exports = {
-  name: 'home',
+  name: 'index',
   props: [
     'user'
   ]

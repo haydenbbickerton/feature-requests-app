@@ -9,8 +9,10 @@
     <section class="sidebar">
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">ADVERTISEMENT</li>
-        <li v-link-active><a v-link="{ name: '' }">Overview</a></li>
+        <li v-link-active><a v-link="{ name: 'home', exact: true }">Home</a></li>
+        <li class="header">CLIENTS</li>
+        <li v-link-active><a v-link="{ name: 'clients' }">All Clients</a></li>
+        <li v-link-active><a v-link="{ name: 'features' }">Features</a></li>
       </ul>
     </section>
     <!-- /.sidebar -->
