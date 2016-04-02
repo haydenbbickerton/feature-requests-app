@@ -9,10 +9,12 @@ export function interceptor (options) {
     request: function (request) {
       let token = Cookies.get('jwt-auth')
       let headers = request.headers || (request.headers = {})
-
       // Add our token to the auth header
-      if (token !== null && token !== 'undefined') {
+      if (token !== null && typeof token !== 'undefined') {
         headers.authorization = 'Bearer ' + token.replace(/\+/g, ' ')
+      } else {
+        // JWT doesn't exist, redirect
+        window.location.replace('http://' + options.base_domain)
       }
 
       return request

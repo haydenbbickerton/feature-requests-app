@@ -8,6 +8,10 @@
 </style>
 
 <template>
+<preloader v-if="!kickedOff" transition="fade">
+    <spinner></spinner>
+</preloader>
+
 <div class="wrapper">
     <navbar 
         :user="user" 
@@ -53,6 +57,7 @@ export default {
   watch: {
     kickedOff: function (kickedOff) {
       if (kickedOff) {
+        // Emit event to all child components after kickoff
         this.$broadcast('kickedOff')
       }
     }
