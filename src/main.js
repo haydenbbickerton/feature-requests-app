@@ -2,20 +2,13 @@
 import vue from 'vue'
 import app from './app'
 import Router from 'vue-router'
-import Resource from 'vue-resource'
-import Components from './components'
-import Interceptors from './interceptors'
+import components from './components'
+import plugins from './plugins'
 import routes from './routes'
 import config from '../config'
 
 const Vue = vue
-
-/*
-|------------------------------------------------
-| Assets
-|------------------------------------------------
-*/
-import './assets'
+window.Vue = Vue
 
 /*
 |------------------------------------------------
@@ -34,16 +27,12 @@ const router = new Router({
 // Inject our routes into the router
 routes(router)
 
-
 /*
 |------------------------------------------------
-| Resource
+| Plugins
 |------------------------------------------------
 */
-Vue.use(Resource)
-Vue.http.options = config.http.options
-Vue.http.headers.common = config.http.headers.common
-Vue.use(Interceptors, config)
+Vue.use(plugins, config)
 
 /*
 |------------------------------------------------
@@ -52,7 +41,7 @@ Vue.use(Interceptors, config)
 | Attaching them to the root instance so they can
 | be used in all views without having to import
 */
-Vue.use(Components)
+Vue.use(components)
 
 // Liftoff
 router.start(app, 'app')

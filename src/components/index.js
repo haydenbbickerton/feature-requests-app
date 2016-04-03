@@ -6,8 +6,12 @@ let components = {
   'sidebar':  './layout/sidebar.vue',
 
   // Partials
-  'preloader':  './ui/partials/preloader.vue',
-  'spinner':    './ui/partials/spinner.vue'
+  'breadcrumbs':  './ui/partials/breadcrumbs.vue',
+  'preloader':    './ui/partials/preloader.vue',
+  'spinner':      './ui/partials/spinner.vue',
+
+  // Data
+  'data-table':  './data/data-table.vue'
 }
 
 function install (Vue) {

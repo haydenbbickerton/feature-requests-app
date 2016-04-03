@@ -23,18 +23,29 @@
     </sidebar>
 
     <div class="main-content-wrapper content-wrapper">
-          <router-view :user="user"></router-view>
+          <router-view :user="user" :breadcrumbs="breadcrumbs"></router-view>
     </div>
 </div><!-- ./wrapper -->
 </template>
 
 <script>
+// Import our assets
+import './assets'
+
 export default {
   name: 'App',
   data: function () {
     return {
       kickedOff: false,
       user: undefined
+    }
+  },
+  computed: {
+    breadcrumbs: function () {
+      // Get current paths to array, without first one (it's blank)
+      let crumbs = this.$route.path.split('/')
+      crumbs.shift()
+      return crumbs
     }
   },
   methods: {
