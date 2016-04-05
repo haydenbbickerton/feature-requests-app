@@ -4,10 +4,10 @@
 
 export function interceptor (options) {
   return {
-    request: function (request) {
+    request (request) {
       return request
     },
-    response: function (response) {
+    response (response) {
       if (response.data.data !== 'undefined') {
         response.data = response.data.data
       }

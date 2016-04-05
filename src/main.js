@@ -1,6 +1,6 @@
 /*eslint no-multiple-empty-lines: "off"*/
 import vue from 'vue'
-import app from './app'
+// import app from './app'
 import Router from 'vue-router'
 import components from './components'
 import plugins from './plugins'
@@ -9,6 +9,7 @@ import config from '../config'
 
 const Vue = vue
 window.Vue = Vue
+Vue.config.debug = true
 
 /*
 |------------------------------------------------
@@ -43,5 +44,9 @@ Vue.use(plugins, config)
 */
 Vue.use(components)
 
+
+// The router needs a root
+let root = Vue.extend({})
+
 // Liftoff
-router.start(app, 'app')
+router.start(root, '#app')

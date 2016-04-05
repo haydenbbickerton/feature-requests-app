@@ -23,7 +23,7 @@
 <script>
 export default {
   name: 'sidebar',
-  data: function () {
+  data () {
     return {
     }
   },

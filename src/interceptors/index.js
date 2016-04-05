@@ -1,9 +1,11 @@
 import data from './data'
 import jwt from './jwt'
+import clients from './clients'
 
 let interceptors = [
   data,
-  jwt
+  jwt,
+  clients
 ]
 
 function install (Vue, options) {

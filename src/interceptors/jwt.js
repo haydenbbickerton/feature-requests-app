@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 
 export function interceptor (options) {
   return {
-    request: function (request) {
+    request (request) {
       let token = Cookies.get('jwt-auth')
       let headers = request.headers || (request.headers = {})
       // Add our token to the auth header
@@ -19,7 +19,7 @@ export function interceptor (options) {
 
       return request
     },
-    response: function (response) {
+    response (response) {
       // JWT isn't valid; remove cookie and redirect
       let invalidStatuses = [400, 401]
       if (response.status && (invalidStatuses.indexOf(response.status) > 0)) {

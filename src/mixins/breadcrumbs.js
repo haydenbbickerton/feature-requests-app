@@ -2,18 +2,18 @@ window.breadcrumbsData = ['Home']
 
 const breadcrumbsMixin = {
   methods: {
-    setBreadcrumb: function (text) {
+    setBreadcrumb (text) {
       Vue.set(breadcrumbsData, this._breadcrumbIndex, text)
     }
   },
   route: {
-    activate: function (transition) {
+    activate (transition) {
       console.log('what')
       this._breadcrumbIndex = breadcrumbsData.length
       breadcrumbsData.length++
       transition.next()
     },
-    deactivate: function (transition) {
+    deactivate (transition) {
       breadcrumbsData.splice(this._breadcrumbIndex, 1)
       transition.next()
     }

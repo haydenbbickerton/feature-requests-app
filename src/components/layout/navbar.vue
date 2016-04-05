@@ -70,6 +70,30 @@
       {{navTitle}}
     </a>
     <nav class="navbar navbar-static-top">
+            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown accounts-menu" v-link-active>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="header">There are {{ clients.length }} clients</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <!-- start account -->
+                                    <li v-for="client in clients">
+                                        <a v-on:click="this.$dispatch('select-client', client.id)">
+                                            <h6>{{ client.name }}</h6>
+                                        </a>
+                                    </li>
+                                    <!-- end account -->
+                                </ul>
+                            </li>
+                            <li class="footer"><a v-link="{ name: 'clients' }">Manage Clients</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -111,15 +135,16 @@
 export default {
   name: 'navbar',
   props: [
+    'clients',
     'user'
   ],
-  data: function () {
+  data () {
     return {
       navTitle: 'Feature Requests'
     }
   },
-  ready: function () {
-    $('.main-content-wrapper').css('padding-top', $(this.$els.header).height())
+  ready () {
+    $('.main-content-wrapper').css('padding-top', $(this.$els.navbar).height())
   }
 }
 

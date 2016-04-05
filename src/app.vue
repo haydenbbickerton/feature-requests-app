@@ -8,24 +8,20 @@
 </style>
 
 <template>
-<preloader v-if="!kickedOff" transition="fade">
-    <spinner></spinner>
-</preloader>
-
-<div class="wrapper">
-    <navbar 
-        :user="user" 
-        v-ref:navbar>
-    </navbar>
-    <sidebar 
-        :user="user"
-        v-ref:sidebar>
-    </sidebar>
-
-    <div class="main-content-wrapper content-wrapper">
-          <router-view :user="user" :breadcrumbs="breadcrumbs"></router-view>
+<div> <!-- blank div to avoid fragement instance -->
+    <preloader transition="fade" v-if="$loadingRouteData">
+        <spinner>
+        </spinner>
+    </preloader>
+    <div class="wrapper" v-if="!$loadingRouteData">
+        <navbar :clients="clients" :user="user" v-ref:navbar></navbar>
+        <sidebar :user="user" v-ref:sidebar></sidebar>
+        <div class="main-content-wrapper content-wrapper">
+            <router-view :breadcrumbs="breadcrumbs" :user="user" :clients="clients" :client="client"></router-view>
+        </div>
     </div>
-</div><!-- ./wrapper -->
+    <!-- ./wrapper -->
+</div>
 </template>
 
 <script>
@@ -34,47 +30,42 @@ import './assets'
 
 export default {
   name: 'App',
-  data: function () {
+  data () {
     return {
+      client: undefined,
+      clients: null,
       kickedOff: false,
-      user: undefined
+      user: null
     }
   },
   computed: {
-    breadcrumbs: function () {
+    breadcrumbs () {
       // Get current paths to array, without first one (it's blank)
       let crumbs = this.$route.path.split('/')
       crumbs.shift()
       return crumbs
     }
   },
-  methods: {
-    kickOff: function () {
+  route: {
+    data (transition) {
       /*
-       * The kickoff will check if the user has a login (from the cookie),
-       * and set everything up according to that.
+       * TIL: Because vue-router is awesome, I can return
+       * these promises in object. After they resolve,
+       * they'll be set in the data object and the
+       * transition will continue.
+       *
+       * 1 object replaces 20 lines and 3 methods. Love Vue.
        */
-      return this.initUserData().then(() => {
-        this.$set('kickedOff', true)
-      })
-    },
-    initUserData: function () {
-      // Get info for logged in user, set it on the vue instance
-      return this.$http({url: 'users/me', method: 'GET'}).then((response) => {
-        this.$set('user', response.data)
-      })
-    }
-  },
-  watch: {
-    kickedOff: function (kickedOff) {
-      if (kickedOff) {
-        // Emit event to all child components after kickoff
-        this.$broadcast('kickedOff')
+      if (!this.kickedOff) {
+        return {
+          user: this.$http.get('users/me').then((response) => { return response.data }),
+          clients: this.$http.get('clients').then((response) => { return response.data }),
+          kickedOff: true
+        }
       }
+      transition.next()
     }
-  },
-  ready: function () {
-    this.kickOff()
   }
 }
+
 </script>

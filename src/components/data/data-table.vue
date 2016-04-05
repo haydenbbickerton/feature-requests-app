@@ -18,7 +18,17 @@ export default {
   props: {
     url: {
       type: String,
-      required: true
+      required: false,
+      default () {
+        return null
+      }
+    },
+    data: {
+      type: Array,
+      required: false,
+      default () {
+        return []
+      }
     },
     columns: {
       type: Array,
@@ -27,52 +37,52 @@ export default {
     options: {
       type: Object,
       required: false,
-      default: function () {
+      default () {
         return {}
       }
     }
   },
-  data: function () {
+  data () {
     return {
       _table: null,
-      tableId: 'X' + this._uid,
-      tableData: null
+      tableId: 'X' + this._uid
     }
   },
-  ready: function () {
+  ready () {
     this._table = this.makeTable(this.tableId, this.columns, null)
-    // this.$set('tableData', this.getData(this.url))
-    this.getData(this.url)
-    // this._tableData = this.getData(this.url)
+
+    if (this.url !== null) {
+      this.getUrl(this.url)
+    }
+
+    this.updateTableData()
   },
   methods: {
-    makeTable: function (id, columns, data) {
+    makeTable (id, columns, data) {
       return $('#' + id).DataTable({
         data: data,
         columns: columns
       })
     },
-    updateTableData: function (data) {
-      console.log('updating table')
-      if (typeof data !== 'undefined' && data !== null) {
+    updateTableData () {
+      if (typeof this.data !== 'undefined' && this.data !== null) {
         this._table.clear()
-        this._table.rows.add(data)
+        this._table.rows.add(this.data)
         this._table.draw()
       } else {
-        console.warning('You must pass new data to update table')
+        console.error('You must pass new data to update table')
       }
     },
-    getData: function (url) {
+    getUrl (url) {
       this.$http.get(url).then((response) => {
-        // Success
-        this.tableData = response.data
-      }, function (response) {
-        console.warning(response)
+        this.data = response.data
+      }, (response) => {
+        console.error(response)
       })
     }
   },
   watch: {
-    'tableData': 'updateTableData'
+    'data': 'updateTableData'
   }
 }
 </script>
