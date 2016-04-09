@@ -16,7 +16,8 @@ module.exports = {
   globals: {
     '_': false,
     'Vue': false,
-    'breadcrumbsData': false
+    'breadcrumbsData': false,
+    'router': false
   },
   // add your custom rules here
   'rules': {

@@ -17,19 +17,13 @@
     </section>
     <!-- /.sidebar -->
   </aside>
-
 </template>
 
 <script>
 export default {
   name: 'sidebar',
   data () {
-    return {
-    }
-  },
-  props:
-  [
-    'user'
-  ]
+    return {}
+  }
 }
 </script>

@@ -1,7 +1,8 @@
 /*eslint no-multiple-empty-lines: "off"*/
 import vue from 'vue'
-// import app from './app'
 import Router from 'vue-router'
+import { sync } from 'vuex-router-sync'
+import store from './vuex/store'
 import components from './components'
 import plugins from './plugins'
 import routes from './routes'
@@ -46,7 +47,9 @@ Vue.use(components)
 
 
 // The router needs a root
-let root = Vue.extend({})
+let root = Vue.extend({store})
+
+sync(store, router)
 
 // Liftoff
 router.start(root, '#app')

@@ -1,7 +1,7 @@
 export default (router) => {
   router.map({
     '/': {
-      name: 'root',
+      name: 'app',
       component (resolve) {
         require(['./app.vue'], resolve)
       },

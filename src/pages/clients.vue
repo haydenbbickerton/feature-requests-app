@@ -12,7 +12,7 @@
 </section>
 
 <section class="content">
-    <router-view :user="user" :client="client" :clients="clients"></router-view>
+    <router-view :client="client"></router-view>
 </section>
 </div>
 </template>
@@ -22,9 +22,7 @@ module.exports = {
   name: 'clients',
   props: [
     'client',
-    'clients',
-    'breadcrumbs',
-    'user'
+    'breadcrumbs'
   ]
 }
 </script>

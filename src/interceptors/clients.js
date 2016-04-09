@@ -1,6 +1,3 @@
-import _ from 'lodash'
-import moment from 'moment'
-
 /**
  * Modifies our Client data a bit after
  * it comes back from the API. It'd probably
@@ -10,10 +7,6 @@ import moment from 'moment'
  */
 
 function handleData (data) {
-  _.forEach(data, (client) => {
-    // Turn the dates in moment instances
-    client.created_at = moment(client.created_at.date)
-  })
   return data
 }
 

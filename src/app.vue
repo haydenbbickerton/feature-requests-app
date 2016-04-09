@@ -9,15 +9,14 @@
 
 <template>
 <div> <!-- blank div to avoid fragement instance -->
-    <preloader transition="fade" v-if="$loadingRouteData">
-        <spinner>
-        </spinner>
+    <preloader transition="fade" v-if="!kickedOff">
+        <spinner></spinner>
     </preloader>
-    <div class="wrapper" v-if="!$loadingRouteData">
-        <navbar :clients="clients" :user="user" v-ref:navbar></navbar>
-        <sidebar :user="user" v-ref:sidebar></sidebar>
+    <div class="wrapper" v-if="kickedOff">
+        <navbar v-ref:navbar></navbar>
+        <sidebar v-ref:sidebar></sidebar>
         <div class="main-content-wrapper content-wrapper">
-            <router-view :breadcrumbs="breadcrumbs" :user="user" :clients="clients" :client="client"></router-view>
+            <router-view :breadcrumbs="breadcrumbs"></router-view>
         </div>
     </div>
     <!-- ./wrapper -->
@@ -25,17 +24,22 @@
 </template>
 
 <script>
-// Import our assets
 import './assets'
+import {getMe, getAllClients} from 'src/vuex/actions'
 
 export default {
   name: 'App',
   data () {
-    return {
-      client: undefined,
-      clients: null,
-      kickedOff: false,
-      user: null
+    return {}
+  },
+  vuex: {
+    getters: {
+      clients: ({ clients }) => clients.all,
+      user: ({ user }) => user.info
+    },
+    actions: {
+      getAllClients,
+      getMe
     }
   },
   computed: {
@@ -44,25 +48,19 @@ export default {
       let crumbs = this.$route.path.split('/')
       crumbs.shift()
       return crumbs
+    },
+    kickedOff () {
+      /**
+       * This computed property will resolve to true once
+       * the user and clients have both been set in vuex store.
+       */
+      return this.user.id !== 'undefined' && this.clients !== null
     }
   },
   route: {
     data (transition) {
-      /*
-       * TIL: Because vue-router is awesome, I can return
-       * these promises in object. After they resolve,
-       * they'll be set in the data object and the
-       * transition will continue.
-       *
-       * 1 object replaces 20 lines and 3 methods. Love Vue.
-       */
-      if (!this.kickedOff) {
-        return {
-          user: this.$http.get('users/me').then((response) => { return response.data }),
-          clients: this.$http.get('clients').then((response) => { return response.data }),
-          kickedOff: true
-        }
-      }
+      this.getMe()
+      this.getAllClients()
       transition.next()
     }
   }

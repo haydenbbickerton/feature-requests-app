@@ -4,7 +4,7 @@
 
 <template>
 <div class="data-table-container">
-    <table id="{{ tableId }}" class="table table-striped table-bordered" width="100%"></table>
+    <table id="{{ tableId }}" class="table table-striped table-bordered" width="100%" v-el:table></table>
 </div>
 </template>
 
@@ -40,6 +40,13 @@ export default {
       default () {
         return {}
       }
+    },
+    selectedId: {
+      type: Number,
+      required: false,
+      default () {
+        return 0
+      }
     }
   },
   data () {
@@ -50,6 +57,7 @@ export default {
   },
   ready () {
     this._table = this.makeTable(this.tableId, this.columns, null)
+    this.tableClicks()
 
     if (this.url !== null) {
       this.getUrl(this.url)
@@ -78,6 +86,25 @@ export default {
         this.data = response.data
       }, (response) => {
         console.error(response)
+      })
+    },
+    tableClicks () {
+      let self = this
+
+      /**
+       * When user clicks on row, set active class and
+       * selected id in data
+       */
+      $('#' + this.tableId + ' tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('active')) {
+          $(this).removeClass('active')
+        } else {
+          self._table.$('tr.active').removeClass('active')
+          $(this).addClass('active')
+        }
+
+        let data = self._table.row(this).data()
+        self.selectedId = data.id
       })
     }
   },

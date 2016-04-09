@@ -134,10 +134,12 @@
 <script>
 export default {
   name: 'navbar',
-  props: [
-    'clients',
-    'user'
-  ],
+  vuex: {
+    getters: {
+      clients: ({ clients }) => clients.all,
+      user: ({ user }) => user.info
+    }
+  },
   data () {
     return {
       navTitle: 'Feature Requests'

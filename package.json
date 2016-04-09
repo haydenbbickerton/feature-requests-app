@@ -77,6 +77,8 @@
     "vue-router": "^0.7.11",
     "vue-strap": "^1.0.7",
     "vue-style-loader": "^1.0.0",
+    "vuex": "^0.6.2",
+    "vuex-router-sync": "^1.0.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
