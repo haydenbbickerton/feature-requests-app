@@ -8,7 +8,7 @@
       <h1>
         Features
       </h1>
-      <breadcrumbs :crumbs="breadcrumbs"></breadcrumbs>
+      <breadcrumbs :crumbs="routePathsArray"></breadcrumbs>
 </section>
 
 <section class="content">
@@ -18,10 +18,14 @@
 </template>
 
 <script>
-module.exports = {
+import {routePathsArray} from 'src/vuex/getters'
+
+export default {
   name: 'features',
-  props: [
-    'breadcrumbs'
-  ]
+  vuex: {
+    getters: {
+      routePathsArray
+    }
+  }
 }
 </script>

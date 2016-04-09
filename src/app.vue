@@ -16,7 +16,7 @@
         <navbar v-ref:navbar></navbar>
         <sidebar v-ref:sidebar></sidebar>
         <div class="main-content-wrapper content-wrapper">
-            <router-view :breadcrumbs="breadcrumbs"></router-view>
+            <router-view></router-view>
         </div>
     </div>
     <!-- ./wrapper -->
@@ -43,12 +43,6 @@ export default {
     }
   },
   computed: {
-    breadcrumbs () {
-      // Get current paths to array, without first one (it's blank)
-      let crumbs = this.$route.path.split('/')
-      crumbs.shift()
-      return crumbs
-    },
     kickedOff () {
       /**
        * This computed property will resolve to true once
