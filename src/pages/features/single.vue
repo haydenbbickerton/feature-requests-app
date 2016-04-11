@@ -101,8 +101,8 @@ export default {
       // Get feature by the id in url. Probably not the best idea though...
       let sFeature = Object.assign({}, this.features.find(feature => feature.id === parseInt(this.$route.params.feature_id)))
       sFeature['client'] = this.clients.find(client => client.id === sFeature.client_id)
-      sFeature.created_at = moment(sFeature.created_at.date)
-      sFeature.updated_at = moment(sFeature.updated_at.date)
+      sFeature.created_at = moment(sFeature.created_at)
+      sFeature.updated_at = moment(sFeature.updated_at)
       return sFeature
     }
   },

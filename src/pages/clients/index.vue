@@ -68,7 +68,7 @@ export default {
         return {
           id: sClient.id,
           name: sClient.name,
-          created_at: moment(sClient.created_at.date)
+          created_at: moment(sClient.created_at)
         }
       }
     }
