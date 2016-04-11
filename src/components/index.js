@@ -9,6 +9,7 @@ let components = {
   'breadcrumbs':  './ui/partials/breadcrumbs.vue',
   'preloader':    './ui/partials/preloader.vue',
   'spinner':      './ui/partials/spinner.vue',
+  'loading-bar':  './ui/partials/vue-loading-bar.vue',
 
   // Data
   'data-table':  './data/data-table.vue'

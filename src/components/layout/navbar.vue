@@ -61,12 +61,15 @@
     }
   }
 }
+
 </style>
 
 <template>
 <header class="main-header" v-el:navbar>
+<loading-bar :progress="progress"></loading-bar>
+     
     <!-- Logo -->
-    <a class="logo">
+    <a class="logo" @click="loadingSet(100)">
       {{navTitle}}
     </a>
     <nav class="navbar navbar-static-top">
@@ -81,7 +84,7 @@
                                 <ul class="menu">
                                     <!-- start account -->
                                     <li v-for="client in clients">
-                                        <a v-on:click="this.$dispatch('select-client', client.id)">
+                                        <a @click="setClient(client.id)">
                                             <h6>{{ client.name }}</h6>
                                         </a>
                                     </li>
@@ -132,12 +135,19 @@
 </template>
 
 <script>
+import {loadingSet, setClient} from 'src/vuex/actions'
+
 export default {
   name: 'navbar',
   vuex: {
     getters: {
+      progress: ({ loading }) => loading.progress,
       clients: ({ clients }) => clients.all,
       user: ({ user }) => user.info
+    },
+    actions: {
+      loadingSet,
+      setClient
     }
   },
   data () {
@@ -147,7 +157,10 @@ export default {
   },
   ready () {
     $('.main-content-wrapper').css('padding-top', $(this.$els.navbar).height())
+    if ($('body').hasClass('fixed')) {
+      $('.content-wrapper, .right-side').css('min-height', $(window).height() - $('.main-footer').outerHeight())
+    }
   }
 }
 
-</script>
+</script>vue-autocomplete

@@ -4,7 +4,7 @@
 
 <template>
 <div class="data-table-container">
-    <table id="{{ tableId }}" class="table table-striped table-bordered" width="100%" v-el:table></table>
+    <table id="{{ tableId }}" class="table table-striped table-hover table-bordered" width="100%" v-el:table></table>
 </div>
 </template>
 
@@ -38,7 +38,9 @@ export default {
       type: Object,
       required: false,
       default () {
-        return {}
+        return {
+          clickActive: true
+        }
       }
     },
     selectedId: {
@@ -96,15 +98,18 @@ export default {
        * selected id in data
        */
       $('#' + this.tableId + ' tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('active')) {
-          $(this).removeClass('active')
-        } else {
-          self._table.$('tr.active').removeClass('active')
-          $(this).addClass('active')
+        if (self.options.clickActive === true) {
+          if ($(this).hasClass('active')) {
+            $(this).removeClass('active')
+          } else {
+            self._table.$('tr.active').removeClass('active')
+            $(this).addClass('active')
+          }
         }
 
         let data = self._table.row(this).data()
         self.selectedId = data.id
+        self.$dispatch('data-table:clicked', data)
       })
     }
   },

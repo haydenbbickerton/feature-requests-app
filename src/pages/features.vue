@@ -6,7 +6,7 @@
 <div>
 <section class="content-header">
       <h1>
-        Features
+        Feature Requests
       </h1>
       <breadcrumbs :crumbs="routePathsArray"></breadcrumbs>
 </section>

@@ -25,7 +25,7 @@
 
 <script>
 import './assets'
-import {getMe, getAllClients} from 'src/vuex/actions'
+import {getMe, getAllClients, getAllFeatures} from 'src/vuex/actions'
 
 export default {
   name: 'App',
@@ -35,10 +35,12 @@ export default {
   vuex: {
     getters: {
       clients: ({ clients }) => clients.all,
+      features: ({ features }) => features.all,
       user: ({ user }) => user.info
     },
     actions: {
       getAllClients,
+      getAllFeatures,
       getMe
     }
   },
@@ -46,15 +48,21 @@ export default {
     kickedOff () {
       /**
        * This computed property will resolve to true once
-       * the user and clients have both been set in vuex store.
+       * the user/clients/features have all been set in vuex store.
+       * Even if there are no clients/features, it will be set to [], not null
        */
-      return this.user.id !== 'undefined' && this.clients !== null
+      return this.user.id !== 'undefined' && this.clients !== null && this.features !== null
     }
   },
   route: {
     data (transition) {
-      this.getMe()
-      this.getAllClients()
+      /**
+       * If we haven't kicked off, run a promise that resolves when all returned
+       * promises have resolved.
+       */
+      if (!this.kickedOff) {
+        return Promise.all([this.getMe(), this.getAllClients(), this.getAllFeatures()])
+      }
       transition.next()
     }
   }

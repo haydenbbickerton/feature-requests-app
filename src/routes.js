@@ -42,6 +42,12 @@ export default (router) => {
               component (resolve) {
                 require(['./pages/features/index.vue'], resolve)
               }
+            },
+            '/:feature_id': {
+              name: 'feature',
+              component (resolve) {
+                require(['./pages/features/single.vue'], resolve)
+              }
             }
           }
         }
