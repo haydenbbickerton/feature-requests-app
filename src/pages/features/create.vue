@@ -31,6 +31,10 @@
       </select>
     </div>
     <div class="form-group">
+      <label>Target Date</label>
+      <vue-datetime-picker :model.sync="form.target_date" type="date" date-format="MM-DD-YYYY"></vue-datetime-picker>
+    </div>
+    <div class="form-group">
       <label>Areas</label>
       <div class="checkbox">
         <label>
@@ -58,6 +62,8 @@
       </div>
     </div>
 
+
+
     Status: {{createStatus ? createStatus : '---'}}
 </modal>
 </div>
@@ -65,7 +71,11 @@
 
 <script>
 /*eslint no-unused-vars:0 */
+import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+import 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+import vueDatetimePicker from 'vue-datetime-picker/src/vue-datetime-picker'
 import modal from 'vue-bootstrap-modal'
+import moment from 'moment'
 import {createFeature} from 'src/vuex/actions'
 
 export default {
@@ -74,7 +84,8 @@ export default {
     'showCreate'
   ],
   components: {
-    'modal': modal
+    'vue-datetime-picker': vueDatetimePicker,
+    modal
   },
   data () {
     return {
@@ -85,6 +96,7 @@ export default {
         description: null,
         client: null,
         url: null,
+        target_date: moment().format('M-D-YYYY'),
         areas: []
       }
     }

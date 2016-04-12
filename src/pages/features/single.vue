@@ -56,6 +56,7 @@
                         <ul class="feature-details">
                           <li><strong>Created</strong>: {{feature.created_at.format('MMMM Do YYYY, h:mma')}}</li>
                           <li><strong>Last Updated</strong>: {{feature.updated_at.format('MMMM Do YYYY, h:mma')}}</li>
+                          <li><strong>Target Date</strong>: {{feature.target_date.format('MMMM Do YYYY')}}</li>
                         </ul>
                         <hr>
                           <strong><i class="fa fa-list margin-r-5"></i>Areas</strong>
@@ -101,6 +102,7 @@ export default {
       // Transforming a couple of properties...
       let sFeature = Object.assign({}, this.currentFeature)
       sFeature['client'] = this.clients.find(client => client.id === sFeature.client_id)
+      sFeature.target_date = moment(sFeature.target_date)
       sFeature.created_at = moment(sFeature.created_at)
       sFeature.updated_at = moment(sFeature.updated_at)
       return sFeature
@@ -116,9 +118,13 @@ export default {
       }
     }
   },
-  events: {
-  },
-  methods: {
+  props: [
+    'contentHeader'
+  ],
+  route: {
+    data (transition) {
+      this.contentHeader = `Feature #${this.currentFeature.id} Details`
+    }
   },
   vuex: {
     getters: {

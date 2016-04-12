@@ -51,7 +51,7 @@
                     </h4>
                     <ul class="feature-details">
                       <li><strong>Client</strong>: {{selectedFeature.client.name}}</li>
-                      <li><strong>Last Updated</strong>: {{selectedFeature.updated_at.format('MMMM Do YYYY, h:mma')}}</li>
+                      <li><strong>Target Date</strong>: {{selectedFeature.target_date.format('MMMM Do YYYY')}}</li>
                       <li><strong>Area(s)</strong>: {{selectedFeature.areas.join(', ')}}</li>
                     </ul>
                     <hr>
@@ -101,6 +101,7 @@ export default {
       if (typeof this.selectedId !== 'undefined') {
         let sFeature = Object.assign({}, this.features.find(feature => feature.id === this.selectedId))
         sFeature['client'] = this.clients.find(client => client.id === sFeature.client_id)
+        sFeature.target_date = moment(sFeature.target_date)
         sFeature.created_at = moment(sFeature.created_at)
         sFeature.updated_at = moment(sFeature.updated_at)
         return sFeature
@@ -124,9 +125,9 @@ export default {
           'render': (data, type, full) => `<span class="title-row"><strong>${full.title}</strong> - ${full.description}</span>`
         },
         {
-          'title': 'Date',
-          'data': 'created_at',
-          'render': (created_at) => moment(created_at).calendar()
+          'title': 'Target Date',
+          'data': 'target_date',
+          'render': (target_date) => moment(target_date).calendar()
         }
       ],
       selectedId: undefined,
@@ -136,6 +137,14 @@ export default {
   events: {
     'data-table:clicked' (data) {
       this.selectedId = data.id
+    }
+  },
+  props: [
+    'contentHeader'
+  ],
+  route: {
+    data (transition) {
+      this.contentHeader = 'All Feature Requests'
     }
   },
   methods: {

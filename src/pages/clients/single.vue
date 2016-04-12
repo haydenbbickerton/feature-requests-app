@@ -100,9 +100,9 @@ export default {
           'render': (data, type, full) => `<span class="title-row"><a>${full.title}</strong> - ${full.description}</a></span>`
         },
         {
-          'title': 'Date',
-          'data': 'created_at',
-          'render': (created_at) => moment(created_at).calendar()
+          'title': 'Target Date',
+          'data': 'target_date',
+          'render': (target_date) => moment(target_date).calendar()
         }
       ],
       tableOptions: {
@@ -113,6 +113,14 @@ export default {
   events: {
     'data-table:clicked' (data) {
       this.viewFeatureDetails(data.id)
+    }
+  },
+  props: [
+    'contentHeader'
+  ],
+  route: {
+    data (transition) {
+      this.contentHeader = this.client.name
     }
   },
   methods: {
