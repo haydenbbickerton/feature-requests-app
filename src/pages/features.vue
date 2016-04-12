@@ -7,6 +7,7 @@
 <section class="content-header">
       <h1>
         Feature Requests
+        <back-button></back-button>
       </h1>
       <breadcrumbs :crumbs="routePathsArray"></breadcrumbs>
 </section>

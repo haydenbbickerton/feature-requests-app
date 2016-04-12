@@ -6,6 +6,7 @@ let components = {
   'sidebar':  './layout/sidebar.vue',
 
   // Partials
+  'back-button':  './ui/partials/back-button.vue',
   'breadcrumbs':  './ui/partials/breadcrumbs.vue',
   'preloader':    './ui/partials/preloader.vue',
   'spinner':      './ui/partials/spinner.vue',
