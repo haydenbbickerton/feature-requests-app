@@ -87,6 +87,14 @@ export default {
       showCreate: false
     }
   },
+  props: [
+    'contentHeader'
+  ],
+  route: {
+    data (transition) {
+      this.contentHeader = 'All Clients'
+    }
+  },
   methods: {
     featuresColumnRender (data, type, full, meta) {
       console.log(data.features)

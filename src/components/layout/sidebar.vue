@@ -27,7 +27,6 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MENU</li>
-        <li v-link-active><a v-link="{ name: 'home', exact: true }">Home</a></li>
         <li v-link-active><a v-link="{ name: 'clients' }">All Clients</a></li>
         <li v-link-active><a v-link="{ name: 'features' }">Features</a></li>
       </ul>

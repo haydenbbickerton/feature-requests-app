@@ -8,23 +8,10 @@ export default (router) => {
         require(['./app.vue'], resolve)
       },
       subRoutes: {
-        '/': {
-          name: 'home',
-          component (resolve) {
-            require(['./pages/home.vue'], resolve)
-          },
-          subRoutes: {
-            '/': {
-              component (resolve) {
-                require(['./pages/home/index.vue'], resolve)
-              }
-            }
-          }
-        },
         '/clients': {
           name: 'clients',
           component (resolve) {
-            require(['./pages/clients.vue'], resolve)
+            require(['./pages/gate.vue'], resolve)
           },
           subRoutes: {
             '/': {
@@ -47,7 +34,7 @@ export default (router) => {
         '/features': {
           name: 'features',
           component (resolve) {
-            require(['./pages/features.vue'], resolve)
+            require(['./pages/gate.vue'], resolve)
           },
           subRoutes: {
             '/': {
@@ -73,7 +60,7 @@ export default (router) => {
 
   router.redirect({
     // redirect any not-found route to home
-    '*': '/'
+    '*': '/clients'
   })
 
   router.beforeEach((transition) => {

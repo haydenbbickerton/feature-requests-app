@@ -9,9 +9,10 @@ ol.breadcrumb li.active a {
 
 <template>
 <ol class="breadcrumb">
-    <li><a v-link="{ name: 'home' }"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li v-for="crumb in crumbs" v-bind:class="{'active': $index === (crumbs.length-1)}">
-        <a>{{ crumb }}</a>
+    <li v-for="crumb in crumbs" track-by="$index" v-bind:class="{'active': $index === (crumbs.length-1)}">
+      <a v-link="{path: makeCrumb(crumbs, $index) }">
+        <i class="fa fa-dashboard" v-if="$index === 0"></i> {{ crumb }}
+      </a>
     </li>
 </ol>
 </template>
@@ -19,8 +20,20 @@ ol.breadcrumb li.active a {
 <script>
 export default {
   name: 'breadcrumbs',
-  props: [
-    'crumbs'
-  ]
+  computed: {
+    crumbs () {
+      const crumbs = this.routePath.split('/')
+      crumbs.shift()
+      return crumbs
+    }
+  },
+  methods: {
+    makeCrumb: (crumbs, index) => '/' + crumbs.slice(0, index + 1).join('/')
+  },
+  vuex: {
+    getters: {
+      routePath: state => state.route.path
+    }
+  }
 }
 </script>
