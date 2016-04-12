@@ -81,10 +81,12 @@ module.exports = {
       extract: false
     })
   },
+  externals: {
+    $: 'jQuery',
+    jquery: 'jQuery'
+  },
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
       _: 'lodash'
     })
   ],
