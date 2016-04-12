@@ -100,7 +100,7 @@ export default {
        * redirect to feature requests page.
        */
       this.setClient(id).then(() => {
-        this.$router.go({name: 'features'})
+        this.$router.go({name: 'client', params: { id: this.selectedClient.id }})
       })
     }
   },

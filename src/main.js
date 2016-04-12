@@ -20,7 +20,7 @@ Vue.config.debug = true
 Vue.use(Router)
 
 const router = new Router({
-  hashbang: true,
+  hashbang: false,
   history: true,
   saveScrollPosition: true,
   linkActiveClass: 'active'

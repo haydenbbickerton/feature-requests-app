@@ -98,8 +98,8 @@ export default {
   name: 'single',
   computed: {
     feature () {
-      // Get feature by the id in url. Probably not the best idea though...
-      let sFeature = Object.assign({}, this.features.find(feature => feature.id === parseInt(this.$route.params.feature_id)))
+      // Transforming a couple of properties...
+      let sFeature = Object.assign({}, this.currentFeature)
       sFeature['client'] = this.clients.find(client => client.id === sFeature.client_id)
       sFeature.created_at = moment(sFeature.created_at)
       sFeature.updated_at = moment(sFeature.updated_at)
@@ -123,6 +123,7 @@ export default {
   vuex: {
     getters: {
       clients: ({ clients }) => clients.all,
+      currentFeature: ({features}) => features.current,
       features: ({ features }) => features.all,
       user: ({ user }) => user.info
     },

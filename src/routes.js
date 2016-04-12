@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export default (router) => {
   router.map({
     '/': {
@@ -29,6 +31,16 @@ export default (router) => {
               component (resolve) {
                 require(['./pages/clients/index.vue'], resolve)
               }
+            },
+            '/:id': {
+              name: 'client',
+              currentObject: {
+                statePath: 'clients.current',
+                redirectPath: '/clients'
+              },
+              component (resolve) {
+                require(['./pages/clients/single.vue'], resolve)
+              }
             }
           }
         },
@@ -43,8 +55,12 @@ export default (router) => {
                 require(['./pages/features/index.vue'], resolve)
               }
             },
-            '/:feature_id': {
+            '/:id': {
               name: 'feature',
+              currentObject: {
+                statePath: 'features.current',
+                redirectPath: '/features'
+              },
               component (resolve) {
                 require(['./pages/features/single.vue'], resolve)
               }
@@ -52,6 +68,26 @@ export default (router) => {
           }
         }
       }
+    }
+  })
+
+  router.redirect({
+    // redirect any not-found route to home
+    '*': '/'
+  })
+
+  router.beforeEach((transition) => {
+    /**
+     * For Client and Feature single views, if they come in through url
+     * the current client/feature won't be set. Redirect to the index pages.
+     */
+    if (
+        typeof transition.to.currentObject !== 'undefined' &&
+        _.get(router.app.$store.state, transition.to.currentObject.statePath) === null
+    ) {
+      transition.redirect(transition.to.currentObject.redirectPath)
+    } else {
+      transition.next()
     }
   })
 }

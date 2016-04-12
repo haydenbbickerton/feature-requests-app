@@ -57,7 +57,7 @@
                     <hr>
                     <div class="feature-description"><p>{{selectedFeature.description}}</p></div>
                     <hr>
-                    <a class="btn btn-default btn-block" v-link="{ name: 'feature', params: { feature_id: selectedFeature.id }}">
+                    <a class="btn btn-default btn-block"  @click='viewFeatureDetails(selectedFeature.id)'>
                         <b>
                             View Details
                         </b>
@@ -88,6 +88,7 @@
 <script>
 import moment from 'moment'
 import createModal from './create.vue'
+import {setFeature} from 'src/vuex/actions'
 
 export default {
   name: 'index',
@@ -138,13 +139,13 @@ export default {
     }
   },
   methods: {
-    viewFeatureRequests (id) {
+    viewFeatureDetails (id) {
       /**
-       * Set selected client in store, then
-       * redirect to feature requests page.
+       * Set selected feature in store, then
+       * redirect to feature details page.
        */
-      this.setClient(id).then(() => {
-        this.$router.go({name: 'features'})
+      this.setFeature(id).then(() => {
+        this.$router.go({name: 'feature', params: { id }})
       })
     }
   },
@@ -154,7 +155,9 @@ export default {
       features: ({ features }) => features.all,
       user: ({ user }) => user.info
     },
-    actions: {}
+    actions: {
+      setFeature
+    }
   }
 }
 </script>

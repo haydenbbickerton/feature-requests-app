@@ -2,9 +2,21 @@ import * as types from '../mutation-types'
 
 const state = {
   all: null,
-  current: null,
+  current_id: null,
   lastCreation: null
 }
+
+Object.defineProperties(state, {
+  current: {
+    get () {
+      // If not set, return null. Otherwise return find and return client
+      return this.current_id === null ? null : this.all.find(client => client.id === this.current_id)
+    },
+    set (id) {
+      this.current_id = id
+    }
+  }
+})
 
 const mutations = {
   [types.CREATE_CLIENT] (state) {
@@ -17,8 +29,8 @@ const mutations = {
     state.lastCreation = 'failed'
   },
   [types.SET_CLIENT] (state, client) {
-    state.current = client
-    state.current.features = state.current.features.data
+    state.current = client.id
+    // state.current.features = state.current.features.data
   },
   [types.SET_CLIENTS] (state, clients) {
     state.all = clients

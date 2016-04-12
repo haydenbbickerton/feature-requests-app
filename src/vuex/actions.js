@@ -12,6 +12,7 @@ function makeAction (type) {
 
 /**
  * Clients
+ * ----------------------------------------------------------------------------
  */
 export const createClient = (store, data) => {
   store.dispatch(types.CREATE_CLIENT)
@@ -39,6 +40,7 @@ export const getAllClients = ({ dispatch }) => {
 
 /**
  * Features
+ * ----------------------------------------------------------------------------
  */
 export const createFeature = (store, data) => {
   store.dispatch(types.CREATE_FEATURE)
@@ -52,6 +54,10 @@ export const createFeature = (store, data) => {
   })
 }
 
+export const setFeature = ({ dispatch }, id) => {
+  return Promise.resolve(dispatch(types.SET_FEATURE, id))
+}
+
 export const getAllFeatures = ({ dispatch }) => {
   return features.getFeatures(features => {
     dispatch(types.SET_FEATURES, features)
@@ -60,6 +66,7 @@ export const getAllFeatures = ({ dispatch }) => {
 
 /**
  * Users
+ * ----------------------------------------------------------------------------
  */
 export const getMe = ({ dispatch }) => {
   return user.getMe(user => {
@@ -69,6 +76,7 @@ export const getMe = ({ dispatch }) => {
 
 /**
  * Loading Bar
+ * ----------------------------------------------------------------------------
  */
 export const loadingSet = ({ dispatch }, progress) => {
   dispatch('LOADING_SET', progress)

@@ -61,7 +61,7 @@ export default {
        * promises have resolved.
        */
       if (!this.kickedOff) {
-        return Promise.all([this.getMe(), this.getAllClients(), this.getAllFeatures()])
+        return Promise.all([this.getMe(), this.getAllFeatures(), this.getAllClients()])
       }
       transition.next()
     }
