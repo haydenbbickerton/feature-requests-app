@@ -15,15 +15,23 @@ function makeAction (type) {
  * ----------------------------------------------------------------------------
  */
 export const createClient = (store, data) => {
+  store.dispatch(types.LOADING_SET, 25)
   store.dispatch(types.CREATE_CLIENT)
   return clients.createClient(
     data,
-    () => store.dispatch(types.CREATE_CLIENT_SUCCESS),
-    () => store.dispatch(types.CREATE_CLIENT_FAILURE)
-  ).then(() => {
-    // Fetch an updated client list
-    getAllClients(store)
-  })
+    () => {
+      store.dispatch(types.LOADING_SET, 75)
+      store.dispatch(types.CREATE_CLIENT_SUCCESS)
+      // Fetch updated features/clients list
+      getAllFeatures(store)
+      getAllClients(store)
+      store.dispatch(types.LOADING_SET, 100)
+    },
+    () => {
+      store.dispatch(types.CREATE_CLIENT_FAILURE)
+      store.dispatch(types.LOADING_ERROR)
+    }
+  )
 }
 
 export const updateClient = (store, data) => {
@@ -56,15 +64,23 @@ export const getAllClients = ({ dispatch }) => {
  * ----------------------------------------------------------------------------
  */
 export const createFeature = (store, data) => {
+  store.dispatch(types.LOADING_SET, 25)
   store.dispatch(types.CREATE_FEATURE)
   return features.createFeature(
     data,
-    () => store.dispatch(types.CREATE_FEATURE_SUCCESS),
-    () => store.dispatch(types.CREATE_FEATURE_FAILURE)
-  ).then(() => {
-    // Fetch an updated feature list
-    getAllFeatures(store)
-  })
+    () => {
+      store.dispatch(types.LOADING_SET, 75)
+      store.dispatch(types.CREATE_FEATURE_SUCCESS)
+      // Fetch updated features/clients list
+      getAllFeatures(store)
+      getAllClients(store)
+      store.dispatch(types.LOADING_SET, 100)
+    },
+    () => {
+      store.dispatch(types.CREATE_FEATURE_FAILURE)
+      store.dispatch(types.LOADING_ERROR)
+    }
+  )
 }
 
 export const setFeature = ({ dispatch }, id) => {
@@ -91,7 +107,5 @@ export const getMe = ({ dispatch }) => {
  * Loading Bar
  * ----------------------------------------------------------------------------
  */
-export const loadingSet = ({ dispatch }, progress) => {
-  dispatch('LOADING_SET', progress)
-}
+export const loadingSet = makeAction(types.LOADING_SET)
 export const loadingError = makeAction(types.LOADING_ERROR)

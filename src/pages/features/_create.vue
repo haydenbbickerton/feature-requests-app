@@ -2,16 +2,10 @@
 </style>
 <template>
 <div>
-
-<modal 
-  title="Create New Feature"
-  :show.sync="showCreate" 
-  cancel-text="Close"
-  cancel-class="btn btn-default"
-  ok-text="Create"
-  ok-class="btn btn-primary"
-  @ok="createFeature(this.$data.form)"
->
+<modal :show.sync="showCreate" title="Create New Feature">
+  <div slot="modal-body" class="modal-body">
+  <spinner v-if="saving"></spinner>
+  <div v-else>
     <div class="form-group">
       <label>Title</label>
       <input type="text" v-model="form.title" placeholder="Feature Title" class="form-control">
@@ -61,10 +55,12 @@
         </label>
       </div>
     </div>
-
-
-
-    Status: {{createStatus ? createStatus : '---'}}
+    </div>
+ </div>
+ <div slot="modal-footer" class="modal-footer">
+    <button type="button" class="btn btn-default" @click='showCreate = false'>Close</button>
+    <button type="button" class="btn btn-primary" @click='createFeatureWrapper(this.$data.form)'>Save</button>
+  </div>
 </modal>
 </div>
 </template>
@@ -74,7 +70,7 @@
 import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
 import 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
 import vueDatetimePicker from 'vue-datetime-picker/src/vue-datetime-picker'
-import modal from 'vue-bootstrap-modal'
+import { modal } from 'vue-strap'
 import moment from 'moment'
 import {createFeature} from 'src/vuex/actions'
 
@@ -91,6 +87,7 @@ export default {
     return {
       name: null,
       content: null,
+      saving: false,
       form: {
         title: null,
         description: null,
@@ -99,6 +96,14 @@ export default {
         target_date: moment().format('M-D-YYYY'),
         areas: []
       }
+    }
+  },
+  methods: {
+    createFeatureWrapper (data) {
+      this.saving = true
+      this.createFeature(data).then((test) => {
+        this.showCreate = false
+      })
     }
   },
   vuex: {

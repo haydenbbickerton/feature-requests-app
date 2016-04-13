@@ -60,6 +60,7 @@ export default (router) => {
   })
 
   router.redirect({
+    '/': '/clients',
     // redirect any not-found route to home
     '*': '/clients'
   })

@@ -10,6 +10,7 @@ const mutations = {
     state.progress = progress
   },
   [types.LOADING_ERROR] (state) {
+    state.progress = 100
     state.error = true
   }
 }

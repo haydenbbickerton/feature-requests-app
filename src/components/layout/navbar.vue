@@ -66,7 +66,7 @@
 
 <template>
 <header class="main-header" v-el:navbar>
-<loading-bar :progress="progress"></loading-bar>
+<loading-bar :progress="loadingb.progress" :error="loadingb.error"></loading-bar>
      
     <!-- Logo -->
     <a class="logo" @click="loadingSet(100)">
@@ -141,7 +141,7 @@ export default {
   name: 'navbar',
   vuex: {
     getters: {
-      progress: ({ loading }) => loading.progress,
+      loadingb: ({ loading }) => loading,
       clients: ({ clients }) => clients.all,
       user: ({ user }) => user.info
     },

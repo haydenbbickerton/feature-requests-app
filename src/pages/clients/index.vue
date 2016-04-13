@@ -4,7 +4,9 @@
 <template>
 <!-- div to avoid fragement instance -->
 <div>
-<create-modal :show-create.sync="showCreate"></create-modal>
+<div v-if="showCreate">
+  <create-modal  :show-create.sync="showCreate"></create-modal>
+</div>
 
 <div class="row">
     <div class="col-md-3">

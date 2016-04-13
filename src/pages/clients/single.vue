@@ -123,9 +123,8 @@ export default {
     return {
       columns: [
         {
-          'title': 'Client',
-          'data': 'client_id',
-          'render': (client_id) => this.clients.find(client => client.id === client_id).name
+          'title': 'Priority',
+          'render': (data, type, full, meta) => parseInt(meta.row) + 1
         },
         {
           'title': 'Request',

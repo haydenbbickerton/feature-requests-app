@@ -70,7 +70,6 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "vue-animate": "0.0.4",
-    "vue-bootstrap-modal": "^0.1.13",
     "vue-datetime-picker": "^0.1.1",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",

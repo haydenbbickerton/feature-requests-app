@@ -8,19 +8,14 @@
 </style>
 
 <template>
-<div> <!-- blank div to avoid fragement instance -->
-    <preloader transition="fade" v-if="!kickedOff">
-        <spinner></spinner>
-    </preloader>
-    <div class="wrapper" v-if="kickedOff">
-        <navbar v-ref:navbar></navbar>
-        <sidebar v-ref:sidebar></sidebar>
-        <div class="main-content-wrapper content-wrapper">
-            <router-view></router-view>
-        </div>
+<div class="wrapper" v-if="kickedOff">
+    <navbar v-ref:navbar></navbar>
+    <sidebar v-ref:sidebar></sidebar>
+    <div class="main-content-wrapper content-wrapper">
+        <router-view></router-view>
     </div>
-    <!-- ./wrapper -->
 </div>
+<!-- ./wrapper -->
 </template>
 
 <script>
@@ -54,6 +49,8 @@ export default {
       return this.user.id !== 'undefined' && this.clients !== null && this.features !== null
     }
   },
+  ready () {
+  },
   route: {
     data (transition) {
       /**
@@ -61,7 +58,10 @@ export default {
        * promises have resolved.
        */
       if (!this.kickedOff) {
-        return Promise.all([this.getMe(), this.getAllFeatures(), this.getAllClients()])
+        return Promise.all([this.getMe(), this.getAllFeatures(), this.getAllClients()]).then(() => {
+          // Everything is ready, hide the preloader overlay
+          $('#preloader').delay(1000).fadeOut('slow')
+        })
       }
       transition.next()
     }

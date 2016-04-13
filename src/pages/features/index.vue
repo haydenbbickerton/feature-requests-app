@@ -33,7 +33,11 @@
 <template>
 <!-- div to avoid fragement instance -->
 <div>
-<create-modal :show-create.sync="showCreate"></create-modal>
+
+<!-- I'm passing showcreate to trigger modal, but also doing v-if to destroy (along with previous form data) 
+      every open/close. There's probably a better way to do this -->
+<create-modal :show-create.sync="showCreate" v-if="showCreate"></create-modal>
+
 <div class="row">
     <div class="col-md-3">
     <button class="btn btn-primary btn-block margin-bottom" @click="showCreate = true">Create New Feature Request</button>
