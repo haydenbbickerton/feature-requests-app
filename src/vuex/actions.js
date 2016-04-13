@@ -26,10 +26,23 @@ export const createClient = (store, data) => {
   })
 }
 
-export const setClient = ({ dispatch }, id) => {
-  return clients.getClient(id, {include: 'features'}, client => {
-    dispatch(types.SET_CLIENT, client)
+export const updateClient = (store, data) => {
+  store.dispatch(types.UPDATE_CLIENT)
+  return clients.updateClient(
+    data,
+    () => store.dispatch(types.UPDATE_CLIENT_SUCCESS),
+    () => store.dispatch(types.UPDATE_CLIENT_FAILURE)
+  ).then(() => {
+    // Fetch an updated client list
+    getAllClients(store)
   })
+}
+
+export const setClient = ({ dispatch }, id) => {
+  return Promise.resolve(dispatch(types.SET_CLIENT, id))
+  /* return clients.getClient(id, {include: 'features'}, client => {
+    dispatch(types.SET_CLIENT, client)
+  })*/
 }
 
 export const getAllClients = ({ dispatch }) => {

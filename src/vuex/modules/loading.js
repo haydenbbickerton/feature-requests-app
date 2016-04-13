@@ -7,7 +7,6 @@ const state = {
 
 const mutations = {
   [types.LOADING_SET] (state, progress) {
-    console.log(progress)
     state.progress = progress
   },
   [types.LOADING_ERROR] (state) {

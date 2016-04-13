@@ -23,5 +23,12 @@ export default {
     }, (response) => {
       errorCb(response.data)
     })
+  },
+  updateClient (data, cb, errorCb) {
+    return resource.update({id: data.id}, data).then((response) => {
+      cb(response.data)
+    }, (response) => {
+      errorCb(response.data)
+    })
   }
 }

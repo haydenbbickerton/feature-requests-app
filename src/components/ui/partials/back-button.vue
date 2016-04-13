@@ -1,5 +1,5 @@
 <template>
-<button @click="goBack()" class="btn btn-default btn-sm"><i class="fa fa-angle-left" style="margin-right:5px;"></i> {{text}}</button>
+<button @click="goBack()" class="btn btn-default btn-sm btn-flat"><i class="fa fa-angle-left" style="margin-right:5px;"></i> {{text}}</button>
 </template>
 
 <script>

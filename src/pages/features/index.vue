@@ -87,7 +87,7 @@
 
 <script>
 import moment from 'moment'
-import createModal from './create.vue'
+import createModal from './_create.vue'
 import {setFeature} from 'src/vuex/actions'
 
 export default {

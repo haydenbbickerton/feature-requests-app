@@ -77,6 +77,7 @@
     "vue-loader": "^8.2.1",
     "vue-resource": "^0.7.0",
     "vue-router": "^0.7.11",
+    "vue-sortable": "haydenbbickerton/vue-sortable#1e14803",
     "vue-strap": "^1.0.7",
     "vue-style-loader": "^1.0.0",
     "vuex": "^0.6.2",

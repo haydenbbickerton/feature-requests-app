@@ -18,6 +18,20 @@
     text-overflow: ellipsis;
   }
 }
+.client-features {
+  > .box-header > .box-title {
+    .btn.btn-default {
+      background: #f4f4f4;
+    }
+    .btn-primary.btn-primary:hover {
+      background: #367fa9;
+    }
+    .btn.btn-danger:hover {
+      background: #d73925;
+    }
+  }
+}
+
 #client-table .title-row {
   white-space: nowrap;
   overflow: hidden;
@@ -62,15 +76,30 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="box box-solid">
+            <div class="box box-solid client-features">
                 <div class="box-header with-border">
                     <h3 class="box-title">
                         {{client.name}}'s Feature Requests
+                        <button class="btn btn-sm btn-flat btn-default" @click="togglePriorityMode" v-if="!priorityMode">
+                            Change Priorities
+                        </button>
+                        <button class="btn btn-sm btn-flat btn-primary" @click="savePriorities" v-if="priorityMode">
+                            Save
+                        </button>
+                        <button class="btn btn-sm btn-flat btn-danger" @click="togglePriorityMode" v-if="priorityMode">
+                            Cancel
+                        </button>
                     </h3>
                 </div>
                 <div class="box-body">
-                  <data-table :columns="columns" :data="client.features" id="client-table" :options="tableOptions">
-                    </data-table>
+                  <data-table 
+                    :columns="columns"
+                    :data="client.features"
+                    id="client-table"
+                    :options="tableOptions"
+                    v-if="!priorityMode">
+                  </data-table>
+                  <priorities :features="client.features" :priorities-order.sync="prioritiesOrder" v-else></priorities>
                 </div>
             </div>
         </div>
@@ -80,11 +109,15 @@
 
 <script>
 import moment from 'moment'
-import {setClient, setFeature} from 'src/vuex/actions'
+import {updateClient, setFeature, loadingSet} from 'src/vuex/actions'
+import priorities from './_priorities.vue'
 
 export default {
   name: 'single',
   computed: {
+  },
+  components: {
+    priorities
   },
   data () {
     return {
@@ -92,7 +125,7 @@ export default {
         {
           'title': 'Client',
           'data': 'client_id',
-          'render': (client_id) => this.client.name
+          'render': (client_id) => this.clients.find(client => client.id === client_id).name
         },
         {
           'title': 'Request',
@@ -107,7 +140,9 @@ export default {
       ],
       tableOptions: {
         clickActive: false
-      }
+      },
+      priorityMode: false,
+      prioritiesOrder: {}
     }
   },
   events: {
@@ -123,8 +158,11 @@ export default {
       this.contentHeader = this.client.name
     }
   },
+  ready () {
+    this.$set('prioritiesOrder', this.client.feature_priorities)
+  },
   methods: {
-    moment, // Can't call the import from the template... So we'll bind as instance method.
+    moment,
     viewFeatureDetails (id) {
       /**
        * Set selected feature in store, then
@@ -132,6 +170,18 @@ export default {
        */
       this.setFeature(id).then(() => {
         this.$router.go({name: 'feature', params: { id }})
+      })
+    },
+    togglePriorityMode () {
+      this.priorityMode = !this.priorityMode
+    },
+    savePriorities () {
+      this.loadingSet(25)
+      let sClient = _.cloneDeep(this.client)
+      sClient['feature_priorities'] = this.prioritiesOrder
+      this.updateClient(sClient).then(() => {
+        this.loadingSet(100)
+        this.togglePriorityMode()
       })
     }
   },
@@ -143,7 +193,8 @@ export default {
       user: ({ user }) => user.info
     },
     actions: {
-      setClient,
+      loadingSet,
+      updateClient,
       setFeature
     }
   }

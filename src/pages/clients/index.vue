@@ -39,7 +39,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="col-xs-12 table-responsive">
-                    <data-table :columns="columns" :data="clientsWithFeatures" :selected-id.sync="selectedId">
+                    <data-table :columns="columns" :data="clients" :selected-id.sync="selectedId">
                     </data-table>
                 </div>
             </div>
@@ -52,8 +52,7 @@
 <script>
 import moment from 'moment'
 import {setClient} from 'src/vuex/actions'
-import createModal from './create.vue'
-import {clientsWithFeatures} from 'src/vuex/getters'
+import createModal from './_create.vue'
 
 export default {
   name: 'index',
@@ -114,7 +113,6 @@ export default {
   },
   vuex: {
     getters: {
-      clientsWithFeatures,
       clients: ({ clients }) => clients.all
     },
     actions: {

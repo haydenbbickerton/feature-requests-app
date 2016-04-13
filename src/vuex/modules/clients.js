@@ -28,8 +28,16 @@ const mutations = {
   [types.CREATE_CLIENT_FAILURE] (state, savedCartItems) {
     state.lastCreation = 'failed'
   },
-  [types.SET_CLIENT] (state, client) {
-    state.current = client.id
+  [types.UPDATE_CLIENT] (state) {
+  },
+  [types.UPDATE_CLIENT_SUCCESS] (state) {
+    state.lastCreation = 'successful'
+  },
+  [types.UPDATE_CLIENT_FAILURE] (state, savedCartItems) {
+    state.lastCreation = 'failed'
+  },
+  [types.SET_CLIENT] (state, id) {
+    state.current = id
     // state.current.features = state.current.features.data
   },
   [types.SET_CLIENTS] (state, clients) {

@@ -1,4 +1,5 @@
 import _ from 'lodash'
+// import {loadingSet} from 'src/vuex/actions'
 
 export default (router) => {
   router.map({
@@ -64,6 +65,7 @@ export default (router) => {
   })
 
   router.beforeEach((transition) => {
+    router.app.$store.dispatch('LOADING_SET', Math.floor(Math.random() * 50) + 20)
     /**
      * For Client and Feature single views, if they come in through url
      * the current client/feature won't be set. Redirect to the index pages.
@@ -76,5 +78,13 @@ export default (router) => {
     } else {
       transition.next()
     }
+  })
+
+  router.afterEach((transition) => {
+      /**
+       * I'm dispatching these loading bar sets in kind of a round about way,
+       * there's probably a better method for this.
+       */
+    router.app.$store.dispatch('LOADING_SET', 100)
   })
 }
