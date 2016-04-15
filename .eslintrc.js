@@ -14,8 +14,7 @@ module.exports = {
     'html'
   ],
   globals: {
-    '_': false,
-    'Vue': false
+    '_': false
   },
   // add your custom rules here
   'rules': {

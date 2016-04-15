@@ -1,3 +1,6 @@
+/**
+ * NOTE: This part is still pretty messy. Don't pay attention to it :)
+ */
 import clients from '../api/clients'
 import features from '../api/features'
 import user from '../api/user'

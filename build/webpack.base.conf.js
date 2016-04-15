@@ -1,6 +1,6 @@
 var path = require('path')
-var webpack = require('webpack')
-var cssLoaders = require('./css-loaders')
+var config = require('../config/index')
+var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 
 module.exports = {
@@ -8,21 +8,22 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/static/',
+    path: config.build.assetsRoot,
+    publicPath: config.build.assetsPublicPath,
     filename: '[name].js'
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      'src': path.resolve(__dirname, '../src')
+      'src': path.resolve(__dirname, '../src'),
+      'assets': path.resolve(__dirname, '../src/assets'),
+      'components': path.resolve(__dirname, '../src/components')
     }
   },
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')]
   },
-  devtool: 'source-map',
   module: {
     preLoaders: [
       {
@@ -50,47 +51,39 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
         test: /\.css$/,
-        loader: 'style!css'
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
+        loader: 'style-loader!css-loader!less-less'
       },
       {
         test: /\.html$/,
         loader: 'vue-html'
       },
       {
-        test: /\.(png|jpg|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
         query: {
           limit: 10000,
-          name: '[name].[ext]?[hash:7]'
+          name: utils.assetsPath('[name].[hash:7].[ext]')
         }
       }
     ]
-  },
-  vue: {
-    loaders: cssLoaders({
-      sourceMap: false,
-      extract: false
-    })
   },
   externals: {
     $: 'jQuery',
     jquery: 'jQuery'
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      _: 'lodash'
-    })
-  ],
   eslint: {
     formatter: require('eslint-friendly-formatter')
+  },
+  vue: {
+    loaders: utils.cssLoaders()
   }
 }

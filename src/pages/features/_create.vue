@@ -67,7 +67,7 @@
 
 <script>
 /*eslint no-unused-vars:0 */
-import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+import '!style!css!eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css'
 import 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
 import vueDatetimePicker from 'vue-datetime-picker/src/vue-datetime-picker'
 import { modal } from 'vue-strap'

@@ -1,4 +1,5 @@
 /*eslint no-multiple-empty-lines: "off"*/
+// import 'babel-es6-polyfill'
 import vue from 'vue'
 import Router from 'vue-router'
 import { sync } from 'vuex-router-sync'

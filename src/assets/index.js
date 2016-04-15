@@ -1,8 +1,8 @@
 /**
  * Style Imports
  */
-import './AdminLTE.less'
-import './vue-animate.less'  // Dogfooding in action
+import '!style!css!less!./AdminLTE.less'
+import '!style!css!less!./vue-animate.less'  // Dogfooding in action
 
 /**
  * Script Imports

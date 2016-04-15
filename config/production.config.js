@@ -2,10 +2,17 @@ var path = require('path')
 
 var config = {
   env: 'production',
+  build: {
+    index: path.resolve(__dirname, '../dist/index.html'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: '../static',
+    assetsPublicPath: '/',
+    productionSourceMap: true
+  },
   paths: {
     root: path.resolve(__dirname, '..')
   },
-  base_url: 'http://feature-requests.dev',
+  base_domain: 'feature-requests.dev',
   http: {
     options: {
       root: 'http://api.feature-requests.dev'
@@ -19,4 +26,4 @@ var config = {
   debug: false
 }
 
-export default config
+module.exports = config

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import 'datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css'
+import '!style!css!datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css'
 import 'datatables'
 import 'datatables-bootstrap3-plugin'
 
