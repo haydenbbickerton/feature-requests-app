@@ -1,5 +1,5 @@
 {
-  "name": "feature-requests-ui",
+  "name": "feature-requests-app",
   "version": "0.1.0",
   "description": "Frontend for Feature Requests",
   "author": "haydenbbickerton <haydenbbickerton@gmail.com>",
@@ -29,6 +29,7 @@
     "datatables": "^1.10.11",
     "datatables-bootstrap3-plugin": "^0.4.0",
     "eonasdan-bootstrap-datetimepicker": "^4.15.35",
+    "es6-promise": "^3.1.2",
     "eslint": "^2.0.0",
     "eslint-config-standard": "^5.1.0",
     "eslint-friendly-formatter": "^1.2.2",
