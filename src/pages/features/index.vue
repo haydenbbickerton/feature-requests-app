@@ -121,7 +121,7 @@ export default {
         {
           'title': 'Client',
           'data': 'client_id',
-          'render': (client_id) => this.clients.find(client => client.id === client_id).name
+          'render': (client_id) => this.clients.find(client => client.id === parseInt(client_id)).name
         },
         {
           'title': 'Request',
