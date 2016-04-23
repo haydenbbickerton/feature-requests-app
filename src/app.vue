@@ -11,7 +11,7 @@
 <div class="wrapper" v-if="kickedOff">
     <navbar v-ref:navbar></navbar>
     <sidebar v-ref:sidebar></sidebar>
-    <div class="main-content-wrapper content-wrapper">
+    <div class="content-wrapper">
         <router-view></router-view>
     </div>
 </div>

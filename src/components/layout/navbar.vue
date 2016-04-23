@@ -62,74 +62,85 @@
   }
 }
 
+@media (min-width: 768px) {
+  .sidebar-toggle {
+      display: none;
+  }
+}
 </style>
 
 <template>
 <header class="main-header" v-el:navbar>
-<loading-bar :progress="loadingb.progress" :error="loadingb.error"></loading-bar>
+    <loading-bar :progress="loadingb.progress" :error="loadingb.error"></loading-bar>
      
     <!-- Logo -->
     <a class="logo" @click="loadingSet(100)">
       {{navTitle}}
     </a>
+
     <nav class="navbar navbar-static-top">
-            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown accounts-menu" v-link-active>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="header">There are {{ clients.length }} clients</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <!-- start account -->
-                                    <li v-for="client in clients">
-                                        <a @click="setClient(client.id)">
-                                            <h6>{{ client.name }}</h6>
-                                        </a>
-                                    </li>
-                                    <!-- end account -->
-                                </ul>
-                            </li>
-                            <li class="footer"><a v-link="{ name: 'clients' }">Manage Clients</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
 
-            <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <!-- User Account Menu -->
-                    <li class="dropdown user user-menu" v-link-active>
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <!-- The user image in the navbar-->
-                        <img :src="user.picture" class="user-image" alt="User Image">
-                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- The user image in the menu -->
-                            <li class="user-header">
-                                <img :src="user.picture" class="img-circle" alt="User Image">
-                                <p>
-                                {{ user.first_name }} {{ user.last_name }}
-                                </p>
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-right">
-                                    <a v-link="{ path: '/auth/logout' }" class="btn btn-default btn-flat">Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-custom-menu -->
-            <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
 
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown accounts-menu" v-link-active>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="header">There are {{ clients.length }} clients</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <!-- start account -->
+                                <li v-for="client in clients">
+                                    <a @click="setClient(client.id)">
+                                        <h6>{{ client.name }}</h6>
+                                    </a>
+                                </li>
+                                <!-- end account -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a v-link="{ name: 'clients' }">Manage Clients</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account Menu -->
+                <li class="dropdown user user-menu" v-link-active>
+                    <!-- Menu Toggle Button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <!-- The user image in the navbar-->
+                    <img :src="user.picture" class="user-image" alt="User Image">
+                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                    <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- The user image in the menu -->
+                        <li class="user-header">
+                            <img :src="user.picture" class="img-circle" alt="User Image">
+                            <p>
+                            {{ user.first_name }} {{ user.last_name }}
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-right">
+                                <a v-link="{ path: '/auth/logout' }" class="btn btn-default btn-flat">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-custom-menu -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
     </nav>
 </header>
 </template>
